@@ -8,7 +8,7 @@ const Logo = () => {
 
   return (
     <Image
-      src="/images/logo.png"
+      src="/images/logo.svg"
       alt="House 4U Logo"
       className="hidden md:block cursor-pointer"
       width={100}
