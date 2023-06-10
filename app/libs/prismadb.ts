@@ -1,7 +1,4 @@
 //This file is used to connect to the database and export the connection to be used in other files.
-//This file is used in the following files:
-// 1. app\libs\auth.ts
-// 2. app\libs\prismadb.ts
 
 import { PrismaClient } from "@prisma/client";
 
