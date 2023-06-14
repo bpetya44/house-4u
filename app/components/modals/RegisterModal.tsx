@@ -8,6 +8,7 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { signIn } from "next-auth/react";
 
 import useRegisterModal from "@/app/hooks/useRegisterModal";
+import useLoginModal from "@/app/hooks/useLoginModal";
 import Modal from "./Modal";
 import Heading from "../Heading";
 import Input from "../inputs/Input";
@@ -16,6 +17,7 @@ import Button from "../Button";
 
 const RegisterModal = () => {
   const registerModal = useRegisterModal();
+  const loginModal = useLoginModal();
   const [isLoading, setIsLoading] = useState(false);
 
   const {
@@ -45,6 +47,11 @@ const RegisterModal = () => {
         setIsLoading(false);
       });
   };
+
+  const toggle = useCallback(() => {
+    registerModal.onClose();
+    loginModal.onOpen();
+  }, [registerModal, loginModal]);
 
   //   BODY CONTENT
   const bodyContent = (
@@ -99,7 +106,7 @@ const RegisterModal = () => {
           <div>Already have an account?</div>
           <div
             className="text-neutral-800 cursor-pointer hover:underline hover:text-purple-500"
-            onClick={registerModal.onClose}
+            onClick={toggle}
           >
             Log in
           </div>

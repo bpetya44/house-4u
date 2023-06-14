@@ -54,6 +54,11 @@ const LoginModal = () => {
     });
   };
 
+  const toggle = useCallback(() => {
+    loginModal.onClose();
+    registerModal.onOpen();
+  }, [loginModal, registerModal]);
+
   //   BODY CONTENT
   const bodyContent = (
     <div className="flex flex-col gap-4">
@@ -96,12 +101,14 @@ const LoginModal = () => {
       />
       <div className="text-neutral-500 text-center mt-4 font-light">
         <div className="flex flex-row items-center gap-2 justify-center">
-          <div>{"Don't have an account?"}</div>
+          <div>
+            First time using <strong>Home 4U</strong>?
+          </div>
           <div
             className="text-neutral-800 cursor-pointer hover:underline hover:text-purple-500"
-            onClick={registerModal.onClose}
+            onClick={toggle}
           >
-            Register
+            Create an account
           </div>
         </div>
       </div>
