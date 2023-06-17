@@ -12,6 +12,7 @@ var react_hook_form_1 = require("react-hook-form");
 var CountrySelect_1 = require("../inputs/CountrySelect");
 var dynamic_1 = require("next/dynamic");
 var Counter_1 = require("../inputs/Counter");
+var ImageUpload_1 = require("../inputs/ImageUpload");
 var STEPS;
 (function (STEPS) {
     STEPS[STEPS["CATEGORY"] = 0] = "CATEGORY";
@@ -42,6 +43,7 @@ exports.RentModal = function () {
     var guestCount = watch("guestCount");
     var roomCount = watch("roomCount");
     var bathroomCount = watch("bathroomCount");
+    var imageSrc = watch("imageSrc");
     var Map = react_1.useMemo(function () {
         return dynamic_1["default"](function () { return Promise.resolve().then(function () { return require("../Map"); }); }, {
             ssr: false
@@ -93,6 +95,12 @@ exports.RentModal = function () {
             React.createElement("hr", null),
             React.createElement(Counter_1["default"], { title: "Bathrooms", subtitle: "How many bathrooms do you have?", value: bathroomCount, onChange: function (value) { return setCustomValue("bathroomCount", value); } })));
     }
-    return (React.createElement(Modal_1["default"], { isOpen: rentModal.isOpen, onClose: rentModal.onClose, onSubmit: onNext, actionLabel: actionLabel, secondaryActionLabel: secondaryActionLabel, secondaryAction: step === STEPS.CATEGORY ? undefined : onBack, title: "Rent out your property", body: bodyContent }));
+    //Step 4 - Images
+    if (step === STEPS.IMAGES) {
+        bodyContent = (React.createElement("div", { className: "flex flex-col gap-8" },
+            React.createElement(Heading_1["default"], { title: "Add some images of your place", subtitle: "Show guests what your place looks like!" }),
+            React.createElement(ImageUpload_1["default"], { value: imageSrc, onChange: function (value) { return setCustomValue("imageSrc", value); } })));
+    }
+    return (React.createElement(Modal_1["default"], { isOpen: rentModal.isOpen, onClose: rentModal.onClose, onSubmit: onNext, actionLabel: actionLabel, secondaryActionLabel: secondaryActionLabel, secondaryAction: step === STEPS.CATEGORY ? undefined : onBack, title: "Your property", body: bodyContent }));
 };
 exports["default"] = exports.RentModal;
