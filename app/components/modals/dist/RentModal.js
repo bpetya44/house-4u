@@ -13,6 +13,7 @@ var CountrySelect_1 = require("../inputs/CountrySelect");
 var dynamic_1 = require("next/dynamic");
 var Counter_1 = require("../inputs/Counter");
 var ImageUpload_1 = require("../inputs/ImageUpload");
+var Input_1 = require("../inputs/Input");
 var STEPS;
 (function (STEPS) {
     STEPS[STEPS["CATEGORY"] = 0] = "CATEGORY";
@@ -25,7 +26,8 @@ var STEPS;
 exports.RentModal = function () {
     var rentModal = useRentModal_1.useRentModal();
     var _a = react_1.useState(STEPS.CATEGORY), step = _a[0], setStep = _a[1];
-    var _b = react_hook_form_1.useForm({
+    var _b = react_1.useState(false), isLoading = _b[0], setIsLoading = _b[1];
+    var _c = react_hook_form_1.useForm({
         defaultValues: {
             category: "",
             location: null,
@@ -37,7 +39,7 @@ exports.RentModal = function () {
             title: "",
             description: ""
         }
-    }), register = _b.register, handleSubmit = _b.handleSubmit, setValue = _b.setValue, watch = _b.watch, errors = _b.formState.errors, reset = _b.reset;
+    }), register = _c.register, handleSubmit = _c.handleSubmit, setValue = _c.setValue, watch = _c.watch, errors = _c.formState.errors, reset = _c.reset;
     var category = watch("category");
     var location = watch("location");
     var guestCount = watch("guestCount");
@@ -100,6 +102,13 @@ exports.RentModal = function () {
         bodyContent = (React.createElement("div", { className: "flex flex-col gap-8" },
             React.createElement(Heading_1["default"], { title: "Add some images of your place", subtitle: "Show guests what your place looks like!" }),
             React.createElement(ImageUpload_1["default"], { value: imageSrc, onChange: function (value) { return setCustomValue("imageSrc", value); } })));
+    }
+    //Step 5 - Description
+    if (step === STEPS.DESCRIPTION) {
+        bodyContent = (React.createElement("div", { className: "flex flex-col gap-8" },
+            React.createElement(Heading_1["default"], { title: "Describe your place", subtitle: "Write a short description" }),
+            React.createElement(Input_1["default"], { id: "title", label: "Title", disabled: isLoading, errors: errors, register: register, required: true }),
+            React.createElement(Input_1["default"], { id: "description", label: "Description", disabled: isLoading, errors: errors, register: register, required: true })));
     }
     return (React.createElement(Modal_1["default"], { isOpen: rentModal.isOpen, onClose: rentModal.onClose, onSubmit: onNext, actionLabel: actionLabel, secondaryActionLabel: secondaryActionLabel, secondaryAction: step === STEPS.CATEGORY ? undefined : onBack, title: "Your property", body: bodyContent }));
 };
