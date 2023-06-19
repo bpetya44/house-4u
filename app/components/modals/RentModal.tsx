@@ -101,7 +101,7 @@ export const RentModal = () => {
         rentModal.onClose();
       })
       .catch(() => {
-        toast.error("Something went wrong!");
+        toast.error("You missed some fields, please check again");
       })
       .finally(() => {
         setIsLoading(false);
@@ -124,6 +124,7 @@ export const RentModal = () => {
     return "Back";
   }, [step]);
 
+  //step 1 - choose a category
   let bodyContent = (
     <div className="flex flex-col gap-8">
       <Heading
