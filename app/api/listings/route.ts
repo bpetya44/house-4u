@@ -27,6 +27,8 @@ export async function POST(
         price,
     } = body;
 
+    // Check if all fields are filled
+    //not required to do this here, as we have already done this in the client side
     Object.keys(body).forEach((key) => {
         if(!body[key]){
             return NextResponse.error();
