@@ -75,7 +75,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
         <div className="aspect-square w-full relative overflow-hidden rounded-xl">
           <Image
             fill
-            alt="Listing image"
+            alt="Listing"
             src={data.imageSrc}
             className="
                     object-cover
