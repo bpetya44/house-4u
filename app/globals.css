@@ -14,3 +14,15 @@ body,
 .leaflet-top {
   z-index: 0 !important;
 }
+
+.rdrCalendarWrapper {
+  width: 100%;
+  font-size: 16px !important;
+}
+.rdrMonth {
+  width: 100% !important;
+}
+
+.rdrDayToday .rdrDayNumber span:after {
+  background: #7b61ff !important;
+}

@@ -7,7 +7,7 @@ var ListingCategory = function (_a) {
         React.createElement("div", { className: "flex flex-row items-center gap-4" },
             React.createElement(Icon, { size: 40, className: "text-purple-700" }),
             React.createElement("div", { className: "flex flex-col" },
-                React.createElement("div", { className: "text-lg font-semibold" }, label),
+                React.createElement("div", { className: "text-lg font-semibold text-purple-700" }, label),
                 React.createElement("div", { className: "text-neutral-500 font-light" }, description)))));
 };
 exports["default"] = ListingCategory;

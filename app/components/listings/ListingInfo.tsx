@@ -61,8 +61,7 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
             flex-row 
             items-center
             gap-4
-            font-light
-            text-neutral-500
+            text-purple-700
              "
         >
           <div>

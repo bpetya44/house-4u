@@ -20,7 +20,7 @@ var ListingInfo = function (_a) {
                     "Hosted by ", user === null || user === void 0 ? void 0 :
                     user.name),
                 React.createElement(Avatar_1["default"], { src: user === null || user === void 0 ? void 0 : user.image })),
-            React.createElement("div", { className: "\r\n            flex\r\n            flex-row \r\n            items-center\r\n            gap-4\r\n            font-light\r\n            text-neutral-500\r\n             " },
+            React.createElement("div", { className: "\r\n            flex\r\n            flex-row \r\n            items-center\r\n            gap-4\r\n            text-purple-700\r\n             " },
                 React.createElement("div", null,
                     guestCount,
                     " ",
