@@ -59,8 +59,8 @@ model Listing {
   locationValue String
   price         Int
 
-  user          User          @relation(fields: [userId], references: [id], onDelete: Cascade)
-  resesrvations Reservation[]
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  reservations Reservation[]
 }
 
 model Reservation {
