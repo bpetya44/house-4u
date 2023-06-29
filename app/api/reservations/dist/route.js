@@ -36,31 +36,48 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-var EmptyState_1 = require("../components/EmptyState");
-var getCurrentUser_1 = require("../actions/getCurrentUser");
-var getReservations_1 = require("../actions/getReservations");
-var TripsClient_1 = require("./TripsClient");
-var TripsPage = function () { return __awaiter(void 0, void 0, void 0, function () {
-    var currentUser, reservations;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0: return [4 /*yield*/, getCurrentUser_1["default"]()];
-            case 1:
-                currentUser = _a.sent();
-                if (!currentUser) {
-                    return [2 /*return*/, React.createElement(EmptyState_1["default"], { title: "Unauthorized", subtitle: "Please login" })];
-                }
-                return [4 /*yield*/, getReservations_1["default"]({
-                        userId: currentUser.id
-                    })];
-            case 2:
-                reservations = _a.sent();
-                if (!reservations.length) {
-                    return [2 /*return*/, (React.createElement(EmptyState_1["default"], { title: "No Trips fround", subtitle: "Try creating a reservation" }))];
-                }
-                return [2 /*return*/, (React.createElement("div", null,
-                        React.createElement(TripsClient_1["default"], { reservations: reservations, currentUser: currentUser })))];
-        }
+exports.POST = void 0;
+var server_1 = require("next/server");
+var prismadb_1 = require("@/app/libs/prismadb");
+var getCurrentUser_1 = require("@/app/actions/getCurrentUser");
+function POST(request) {
+    return __awaiter(this, void 0, void 0, function () {
+        var currentUser, body, listingId, startDate, endDate, totalPrice, listingAndResesrvation;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, getCurrentUser_1["default"]()];
+                case 1:
+                    currentUser = _a.sent();
+                    if (!currentUser) {
+                        return [2 /*return*/, server_1.NextResponse.error()];
+                    }
+                    return [4 /*yield*/, request.json()];
+                case 2:
+                    body = _a.sent();
+                    listingId = body.listingId, startDate = body.startDate, endDate = body.endDate, totalPrice = body.totalPrice;
+                    if (!listingId || !startDate || !endDate || !totalPrice) {
+                        return [2 /*return*/, server_1.NextResponse.error()];
+                    }
+                    return [4 /*yield*/, prismadb_1["default"].listing.update({
+                            where: {
+                                id: listingId
+                            },
+                            data: {
+                                reservations: {
+                                    create: {
+                                        userId: currentUser.id,
+                                        startDate: startDate,
+                                        endDate: endDate,
+                                        totalPrice: totalPrice
+                                    }
+                                }
+                            }
+                        })];
+                case 3:
+                    listingAndResesrvation = _a.sent();
+                    return [2 /*return*/, server_1.NextResponse.json(listingAndResesrvation)];
+            }
+        });
     });
-}); };
-exports["default"] = TripsPage;
+}
+exports.POST = POST;
