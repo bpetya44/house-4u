@@ -1,4 +1,15 @@
 "use strict";
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -36,48 +47,44 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.POST = void 0;
-var server_1 = require("next/server");
 var prismadb_1 = require("@/app/libs/prismadb");
-var getCurrentUser_1 = require("@/app/actions/getCurrentUser");
-function POST(request) {
+function getReservations(params) {
     return __awaiter(this, void 0, void 0, function () {
-        var currentUser, body, listingId, startDate, endDate, totalPrice, listingAndResesrvation;
+        var listingId, userId, authorId, query, reservations, safeReservations, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, getCurrentUser_1["default"]()];
-                case 1:
-                    currentUser = _a.sent();
-                    if (!currentUser) {
-                        return [2 /*return*/, server_1.NextResponse.error()];
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    listingId = params.listingId, userId = params.userId, authorId = params.authorId;
+                    query = {};
+                    if (listingId) {
+                        query.listingId = listingId;
                     }
-                    return [4 /*yield*/, request.json()];
-                case 2:
-                    body = _a.sent();
-                    listingId = body.listingId, startDate = body.startDate, endDate = body.endDate, totalPrice = body.totalPrice;
-                    if (!listingId || !startDate || !endDate || !totalPrice) {
-                        return [2 /*return*/, server_1.NextResponse.error()];
+                    if (userId) {
+                        query.userId = userId;
                     }
-                    return [4 /*yield*/, prismadb_1["default"].listing.update({
-                            where: {
-                                id: listingId
+                    if (authorId) {
+                        query.listing = { userId: authorId };
+                    }
+                    return [4 /*yield*/, prismadb_1["default"].reservation.findMany({
+                            where: query,
+                            include: {
+                                listing: true
                             },
-                            data: {
-                                reservations: {
-                                    create: {
-                                        userId: currentUser.id,
-                                        startDate: startDate,
-                                        endDate: endDate,
-                                        totalPrice: totalPrice
-                                    }
-                                }
+                            orderBy: {
+                                createdAt: "desc"
                             }
                         })];
-                case 3:
-                    listingAndResesrvation = _a.sent();
-                    return [2 /*return*/, server_1.NextResponse.json(listingAndResesrvation)];
+                case 1:
+                    reservations = _a.sent();
+                    safeReservations = reservations.map(function (reservation) { return (__assign(__assign({}, reservation), { createdAt: reservation.createdAt.toISOString(), startDate: reservation.startDate.toISOString(), endDate: reservation.endDate.toISOString(), listing: __assign(__assign({}, reservation.listing), { createdAt: reservation.listing.createdAt.toISOString() }) })); });
+                    return [2 /*return*/, safeReservations];
+                case 2:
+                    error_1 = _a.sent();
+                    throw new Error(error_1);
+                case 3: return [2 /*return*/];
             }
         });
     });
 }
-exports.POST = POST;
+exports["default"] = getReservations;
