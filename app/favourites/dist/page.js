@@ -1,15 +1,4 @@
 "use strict";
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -47,44 +36,28 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-var prismadb_1 = require("@/app/libs/prismadb");
-function getReservations(params) {
-    return __awaiter(this, void 0, void 0, function () {
-        var listingId, userId, authorId, query, reservations, safeReservations, error_1;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    _a.trys.push([0, 2, , 3]);
-                    listingId = params.listingId, userId = params.userId, authorId = params.authorId;
-                    query = {};
-                    if (listingId) {
-                        query.listingId = listingId;
-                    }
-                    if (userId) {
-                        query.userId = userId;
-                    }
-                    if (authorId) {
-                        query.listing = { userId: authorId };
-                    }
-                    return [4 /*yield*/, prismadb_1["default"].reservation.findMany({
-                            where: query,
-                            include: {
-                                listing: true
-                            },
-                            orderBy: {
-                                createdAt: "desc"
-                            }
-                        })];
-                case 1:
-                    reservations = _a.sent();
-                    safeReservations = reservations.map(function (reservation) { return (__assign(__assign({}, reservation), { createdAt: reservation.createdAt.toISOString(), startDate: reservation.startDate.toISOString(), endDate: reservation.endDate.toISOString(), listing: __assign(__assign({}, reservation.listing), { createdAt: reservation.listing.createdAt.toISOString() }) })); });
-                    return [2 /*return*/, safeReservations];
-                case 2:
-                    error_1 = _a.sent();
-                    throw new Error(error_1);
-                case 3: return [2 /*return*/];
-            }
-        });
+var EmptyState_1 = require("../components/EmptyState");
+var getCurrentUser_1 = require("../actions/getCurrentUser");
+var getFavourites_1 = require("../actions/getFavourites");
+var FavouritesClient_1 = require("./FavouritesClient");
+var FavouritesPage = function () { return __awaiter(void 0, void 0, void 0, function () {
+    var currentUser, listings;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, getCurrentUser_1["default"]()];
+            case 1:
+                currentUser = _a.sent();
+                return [4 /*yield*/, getFavourites_1["default"]()];
+            case 2:
+                listings = _a.sent();
+                if (!currentUser) {
+                    return [2 /*return*/, (React.createElement(EmptyState_1["default"], { title: "Unauthorized", subtitle: "Please log in to view this page" }))];
+                }
+                if (listings.length === 0) {
+                    return [2 /*return*/, (React.createElement(EmptyState_1["default"], { title: "No favourites found", subtitle: "It looks like you haven no favourite listings yet." }))];
+                }
+                return [2 /*return*/, React.createElement(FavouritesClient_1["default"], { listings: listings, currentUser: currentUser })];
+        }
     });
-}
-exports["default"] = getReservations;
+}); };
+exports["default"] = FavouritesPage;
