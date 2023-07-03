@@ -45,7 +45,9 @@ var UserMenu = function (_a) {
                 React.createElement(MenuItem_1["default"], { onClick: function () {
                         router.push("/reservations");
                     }, label: "My reservations" }),
-                React.createElement(MenuItem_1["default"], { onClick: function () { }, label: "My properties" }),
+                React.createElement(MenuItem_1["default"], { onClick: function () {
+                        router.push("/properties");
+                    }, label: "My properties" }),
                 React.createElement(MenuItem_1["default"], { onClick: rentModal.onOpen, label: "Your Home" }),
                 React.createElement("hr", null),
                 React.createElement(MenuItem_1["default"], { onClick: function () { return react_2.signOut(); }, label: "Logout" }))) : (React.createElement(React.Fragment, null,
