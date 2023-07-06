@@ -10,3 +10,4 @@ var ErrorState = function (_a) {
     }, [error]);
     return (React.createElement(EmptyState_1["default"], { title: "Oh no! Something went wrong.", subtitle: "Please try again later" }));
 };
+exports["default"] = ErrorState;
