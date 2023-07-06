@@ -40,13 +40,13 @@ exports.metadata = exports.dynamic = void 0;
 exports.dynamic = "force-dynamic";
 require("./globals.css");
 var google_1 = require("next/font/google");
-var Navbar_1 = require("./components/navbar/Navbar");
-var RegisterModal_1 = require("./components/modals/RegisterModal");
-var LoginModal_1 = require("./components/modals/LoginModal");
-var ToasterProvider_1 = require("./providers/ToasterProvider");
+var Navbar_1 = require("@/app/components/navbar/Navbar");
+var RegisterModal_1 = require("@/app/components/modals/RegisterModal");
+var LoginModal_1 = require("@/app/components/modals/LoginModal");
+var ToasterProvider_1 = require("@/app/providers/ToasterProvider");
 var getCurrentUser_1 = require("./actions/getCurrentUser");
-var RentModal_1 = require("./components/modals/RentModal");
-var SearchModal_1 = require("./components/modals/SearchModal");
+var RentModal_1 = require("@/app/components/modals/RentModal");
+var SearchModal_1 = require("@/app/components/modals/SearchModal");
 var font = google_1.Poppins({ subsets: ["latin"], weight: "300" });
 exports.metadata = {
     title: "Home 4U",
