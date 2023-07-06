@@ -1,8 +1,9 @@
-import getListings, { IListingsParams } from "./actions/getListings";
-import getCurrentUser from "./actions/getCurrentUser";
-import Container from "./components/Container";
-import EmptyState from "./components/EmptyState";
-import ListingCard from "./components/listings/ListingCard";
+import Container from "@/app/components/Container";
+import EmptyState from "@/app/components/EmptyState";
+import ListingCard from "@/app/components/listings/ListingCard";
+
+import getListings, { IListingsParams } from "@/app/actions/getListings";
+import getCurrentUser from "@/app/actions/getCurrentUser";
 
 interface HomeProps {
   searchParams: IListingsParams;
@@ -31,7 +32,7 @@ const Home = async ({ searchParams }: HomeProps) => {
           gap-8
           "
       >
-        {listings.map((listing) => {
+        {listings.map((listing: any) => {
           return (
             <ListingCard
               currentUser={currentUser}
