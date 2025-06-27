@@ -24,5 +24,6 @@ body,
 }
 
 .rdrDayToday .rdrDayNumber span:after {
-  background: #7b61ff !important;
+  /* background: #7b61ff !important; */
+  background: #0d0d0e !important;
 }
